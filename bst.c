@@ -16,11 +16,15 @@ void preorder(struct node*);
 void postorder(struct node*);
 int depth(struct node*,int);
 int common(int,int);
+int number(struct node*);
+int maxmin(struct node*);
 int main()
 {
  int c,item,con,d,del,n1,n2;
  do{
-	printf("\nMENU !\n1.Insert\n2.Inorder Traversal\n3.Find Depth\n4.Delete\n5.Common root\n6.Preorder Traversal\n7.Postorder Traversal\n8.Quit\n");
+	printf("\nMENU !\n1.Insert 2.Inorder Traversal 3.Find Depth 4.Delete\n");
+	printf("5.Common root 6.Preorder Traversal 7.Postorder Traversal\n");
+	printf("8.No:of nodes 9.Max and min 10.Quit\n");
 	scanf("%d",&c);
 	switch(c)
 	{
@@ -49,7 +53,11 @@ int main()
 		case 7: printf("\nPostorder traversal is : ");
 			postorder(root);
 			break;
-		case 8: exit(0);
+		case 8: printf("\nNo of nodes is : %d",number(root));
+			break;
+		case 9: maxmin(root);
+			break;
+		case 10: exit(0);
 		default:
 			printf("\nWrong choice entered ! \n");
 			break;
@@ -278,14 +286,30 @@ void postorder(struct node* ptr)
  	 printf("%d ",ptr->info);
 	}
 } 		
- 		
- 		
- 		
+ int num=0;		
+int number(struct node* ptr)
+{
+  if(ptr!=NULL)
+  {
+  	num=num+1;
+  	number(ptr->lchild);
+  	number(ptr->rchild);
+  }
+  return num;
+}
  
- 
- 
- 
- 
- 
- 
- 
+int maxmin(struct node* ptr)
+{
+ struct node* ptr1;
+ ptr1=ptr;
+ while(ptr->lchild!=NULL)
+ {
+ 	ptr=ptr->lchild;
+ } 
+ while(ptr1->rchild!=NULL)
+ {
+ 	ptr1=ptr1->rchild;
+ } 
+ printf("\nMin value is %d\nMax value is %d ",ptr->info,ptr1->info);
+ return 0;
+}
